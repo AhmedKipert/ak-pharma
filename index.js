@@ -30,6 +30,6 @@ app.use(patientRouter);
 
 
 // LANCEMENT DU SERVEUR
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log("Serveur en écoute au port 3000");
 });
