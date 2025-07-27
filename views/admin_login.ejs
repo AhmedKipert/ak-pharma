@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Accueil - Gestion des Patients</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #007bff, #00c6ff);
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 40px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-link {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .dashboard-link a {
+            text-decoration: none;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .dashboard-link a:hover {
+            text-decoration: underline;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Bienvenue 👋</h1>
+        <p>Application de gestion des patients</p>
+
+        <form action="/admin/login" method="post" id="authForm">
+            <input type="email" name="email" id="email" placeholder="Adresse email" required>
+            <input type="password" name="password" id="password" placeholder="Mot de passe" required>
+            <div class="error" id="errorMsg">
+                <% if(error) { %>
+                    <p>
+                        <%= error %>
+                    </p>
+                    <% } %>
+            </div>
+            <button>Se connecter</button>
+            <div class="autres">
+                <p style="margin-top: 20px"><a href="#">Mot de passe oublié</a></p>
+                <p>Vous n'avez pas de compte ? <a href="/admin/ajouter">S'inscrire</a></p>
+            </div>
+    </div>
+
+
+    <div class="dashboard-link" id="dashboard">
+        ✅ Connexion réussie.<br>
+        <a href="dashboard.html">👉 Accéder au tableau de bord</a>
+    </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rendez-vous | Gestion des Patients</title>
+  <link rel="stylesheet" href="/css/rendezvous.css">
+</head>
+<body>
+<%- include('./composants/navbar.ejs') %>
+
+  <header>
+    <h1>📅 Gestion des Rendez-vous</h1>
+    <div class="actions">
+      <input type="text" id="searchRdv" placeholder="🔍 Rechercher par nom ou date">
+      <button id="newRdvBtn">+ Nouveau rendez-vous</button>
+    </div>
+  </header>
+
+  <main>
+    <table class="rdv-table">
+      <thead>
+        <tr>
+          <th>Nom du Patient</th>
+          <th>Date</th>
+          <th>Heure</th>
+          <th>Motif</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="rdvList">
+         rendezvous.forEach(rdv => { %>
+          <tr>
+            <td>= rdv.patient.nom %></td>
+            <td>= rdv.date %></td>
+            <td>= rdv.heure %></td>
+            <td>= rdv.motif %></td>
+            <td>
+              <a href="/rendezvous/= rdv._id %>/edit" class="btn-edit">Modifier</a>
+              <form action="/rendezvous/= rdv._id %>?_method=DELETE" method="POST" class="inline-form">
+                <button type="submit" class="btn-delete">Supprimer</button>
+              </form>
+            </td>
+          </tr>
+         }) %>
+      </tbody>
+    </table>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const search = document.getElementById("searchRdv");
+  const rows = document.querySelectorAll("#rdvList tr");
+
+  search.addEventListener("input", () => {
+    const val = search.value.toLowerCase();
+
+    rows.forEach((row) => {
+      const patient = row.children[0].textContent.toLowerCase();
+      const date = row.children[1].textContent.toLowerCase();
+      row.style.display = patient.includes(val) || date.includes(val) ? "" : "none";
+    });
+  });
+
+  const newBtn = document.getElementById("newRdvBtn");
+  newBtn.addEventListener("click", () => {
+    window.location.href = "/rendezvous/nouveau";
+  });
+});
+
+  </script>
+
+</body>
+</html>
+<style>
+    body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f2f7ff;
+  color: #333;
+}
+
+header {
+  background-color: #4285f4;
+  color: #fff;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+#searchRdv {
+  padding: 0.6rem;
+  border: none;
+  border-radius: 8px;
+  width: 250px;
+}
+
+#newRdvBtn {
+  background-color: #34a853;
+  border: none;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+main {
+  padding: 2rem;
+}
+
+.rdv-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+
+.rdv-table th, .rdv-table td {
+  padding: 1rem;
+  text-align: left;
+}
+
+.rdv-table thead {
+  background-color: #e0ecff;
+  color: #333;
+}
+
+.btn-edit {
+  background-color: #fbbc05;
+  color: #000;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-right: 0.5rem;
+}
+
+.btn-delete {
+  background-color: #ea4335;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.inline-form {
+  display: inline;
+}
+
+</style>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Découvrir – Gestion Patients</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(to right, #007bff, #00c6ff);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      animation: fadeInDown 1s ease;
+    }
+
+    header h1 {
+      margin-bottom: 10px;
+      font-size: 2.5rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      color: #007bff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.6s ease-out;
+    }
+
+    .box.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .box h3 {
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .cta {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+      margin-top: 40px;
+      border-radius: 12px;
+    }
+
+    .cta h3 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .cta a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 25px;
+      background-color: white;
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 30px;
+      transition: 0.3s;
+    }
+
+    .cta a:hover {
+      background-color: #e0e0e0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background-color: #222;
+      color: #ccc;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Découvrir notre solution</h1>
+    <p>Une nouvelle façon de gérer vos patients, efficacement et sereinement.</p>
+  </header>
+
+  <section>
+    <h2>Ce qui rend notre solution unique</h2>
+    <div class="grid">
+      <div class="box">
+        <h3>✔️ Simplicité d’utilisation</h3>
+        <p>Une interface intuitive pensée pour les professionnels de santé, même sans compétences techniques.</p>
+      </div>
+      <div class="box">
+        <h3>⚡ Rapidité & performance</h3>
+        <p>Accédez instantanément aux données, planifiez et consultez sans perdre de temps.</p>
+      </div>
+      <div class="box">
+        <h3>🔒 Sécurité des données</h3>
+        <p>Cryptage, authentification par rôle, conformité RGPD : vos données sont entre de bonnes mains.</p>
+      </div>
+      <div class="box">
+        <h3>📊 Suivi intelligent</h3>
+        <p>Des tableaux de bord clairs pour suivre l’évolution des consultations et des dossiers patients.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Ils en parlent...</h2>
+    <div class="grid">
+      <div class="box">
+        <h3>Dr. Diallo</h3>
+        <p>"Depuis que j'utilise cette plateforme, je gagne 30% de temps chaque semaine. C'est devenu essentiel dans mon quotidien."</p>
+      </div>
+      <div class="box">
+        <h3>Clinique Santé Plus</h3>
+        <p>"Nous avons centralisé tous les dossiers médicaux. L'équipe est plus efficace et les patients sont mieux suivis."</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <h3>Et si vous faisiez le pas ?</h3>
+    <p>Rejoignez les dizaines de professionnels déjà conquis par notre solution.</p>
+    <a href="/admin/login">Commencer maintenant</a>
+  </div>
+
+  <footer>
+    © 2025 Gestion Patients. Tous droits réservés.
+  </footer>
+
+  <script>
+    const boxes = document.querySelectorAll('.box');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    boxes.forEach(box => observer.observe(box));
+  </script>
+
+</body>
+</html>

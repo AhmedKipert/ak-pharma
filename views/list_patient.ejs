@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste des patients</title>
+  <link rel="stylesheet" href="/css/all.min.css">
+  <link rel="stylesheet" href="/css/patient_liste.css">
+</head>
+
+<body>
+
+  <%- include('./composants/navbar.ejs') %>
+<div class="main-container">
+      <div class="search-container">
+      <section class="search-section">
+        <div class="search-container">
+          <h2>Rechercher un patient</h2>
+          <p>Entrez un identifiant, un nom ou toute autre information pour retrouver un patient rapidement.</p>
+          <form class="search-form" action="/patient/trouver" method="post">
+            <div class="search-input-wrapper">
+              <span class="search-icon">🔍</span>
+              <input type="text" name="id" id="rechercher" placeholder="ID ou nom du patient">
+            </div>
+            <button type="submit">Rechercher</button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <h2>Liste des Patients</h2>
+<div class="conteneurTable">
+    <table>
+      <thead>
+        <tr>
+          <th><a href="/patients/liste?sortBy=numero&order=<%= order === 'asc' ? 'desc' : 'asc' %>">N° <i
+                class="<%= order === 'asc' && sortBy==='numero' ? 'fas fa-sort-down' : sortBy==='numero' && order==='desc' ? 'fas fa-sort-up': 'fas fa-sort' %>"></i></a>
+          </th>
+          <th><a href="/patients/liste?sortBy=prenom&order=<%= order === 'asc' ? 'desc' : 'asc' %>">Prénom <i
+                class="<%= order === 'asc' && sortBy==='prenom' ? 'fas fa-sort-down' : sortBy==='prenom' && order==='desc' ? 'fas fa-sort-up': 'fas fa-sort' %>"></i></a>
+          </th>
+          <th><a href="/patients/liste?sortBy=nom&order=<%= order === 'asc' ? 'desc' : 'asc' %>">Nom <i
+                class="<%= order === 'asc' && sortBy==='nom' ? 'fas fa-sort-down' : sortBy==='nom' && order==='desc' ? 'fas fa-sort-up': 'fas fa-sort' %>"></i></a>
+          </th>
+          <th>Email</th>
+          <th><a href="/patients/liste?sortBy=age&order=<%= order === 'asc' ? 'desc' : 'asc' %>">Age <i
+                class="<%= order === 'asc' && sortBy==='age' ? 'fas fa-sort-down' : sortBy==='age' && order==='desc' ? 'fas fa-sort-up': 'fas fa-sort' %>"></i></a>
+          </th>
+          <th><a href="/patients/liste?sortBy=sexe&order=<%= order === 'asc' ? 'desc' : 'asc' %>">Sexe <i
+                class="<%= order === 'asc' && sortBy==='sexe' ? 'fas fa-sort-down' : sortBy==='sexe' && order==='desc' ? 'fas fa-sort-up': 'fas fa-sort' %>"></i></a>
+          </th>
+          <th><a href="/patients/liste?sortBy=fonction&order=<%= order === 'asc' ? 'desc' : 'asc' %>">Fonction <i
+                class="<%= order === 'asc' && sortBy==='fonction' ? 'fas fa-sort-down' : sortBy==='fonction' && order==='desc' ? 'fas fa-sort-up': 'fas fa-sort' %>"></i></a>
+          </th>
+          <th><a href="/patients/liste?sortBy=dateConsultation&order=<%= order === 'asc' ? 'desc' : 'asc' %>">Date
+              consultation <i
+                class="<%= order === 'asc' && sortBy==='dateConsultation' ? 'fas fa-sort-down' : sortBy==='dateConsultation' && order==='desc' ? 'fas fa-sort-up': 'fas fa-sort' %>"></i></a>
+          </th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let i=0; i < patients.length; i++) { %>
+          <tr>
+            <td>
+              <%= patients[i].numero %>
+            </td>
+            <td>
+              <%= patients[i].prenom %>
+            </td>
+            <td>
+              <%= patients[i].nom %>
+            </td>
+            <td>
+              <%= patients[i].email %>
+            </td>
+            <td>
+              <%= patients[i].age %>
+            </td>
+            <td>
+              <%= patients[i].sexe %>
+            </td>
+            <td>
+              <%= patients[i].fonction %>
+            </td>
+            <td>
+              <%= patients[i].dateConsultation %>
+            </td>
+            <td>
+              <a id="modifier" href="/patient/modifier/<%= patients[i]._id %>">Modifier</a>
+              <a id="supprimer" href="/patient/supprimer/<%= patients[i]._id %>">Supprimer</a>
+            </td>
+          </tr>
+          <% } %>
+      </tbody>
+    </table>
+</div>
+    <!-- Pagination : bien en dehors de la balise <style> -->
+    <div class="pagination">
+      <% if (currentPage> 1) { %>
+        <a href="/patients/liste?page=<%= currentPage - 1 %>">« Précédent</a>
+        <% } %>
+
+          <% for (let i=1; i <=totalPages; i++) { %>
+            <a href="/patients/liste?page=<%= i %>&sortBy=<%= sortBy %>&order=<%= order %>"
+              class="<%= i === currentPage ? 'active' : '' %>">
+              <%= i %>
+            </a>
+            <% } %>
+
+              <% if (currentPage < totalPages) { %>
+                <a href="/patients/liste?page=<%= currentPage + 1 %>">Suivant »</a>
+                <% } %>
+    </div>
+
+</div>
+
+</body>
+
+</html>

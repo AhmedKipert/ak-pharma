@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contactez-nous</title>
+  <link rel="stylesheet" href="/css/contact.css">
+</head>
+<body>
+ <%- include('./composants/navbar.ejs') %>
+  <section class="contact-section">
+    <div class="container">
+      <h1 class="contact-title">📬 Contactez-nous</h1>
+      <p class="contact-subtitle">Nous serions ravis de discuter avec vous. Remplissez le formulaire ci-dessous ou passez nous voir !</p>
+
+      <div class="contact-grid">
+        <!-- Formulaire de contact -->
+        <div class="contact-form">
+          <form action="/envoyer-message" method="POST">
+            <div class="form-group">
+              <label for="nom">Nom complet</label>
+              <input type="text" id="nom" name="nom" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Adresse e-mail</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Votre message</label>
+              <textarea id="message" name="message" rows="6" required></textarea>
+            </div>
+            <button type="submit" class="btn">Envoyer ✉️</button>
+          </form>
+        </div>
+
+        <!-- Carte et infos -->
+        <div class="contact-info">
+          <iframe src="https://www.google.com/maps?q=université+sonfonia+conakry&output=embed" frameborder="0" allowfullscreen="" loading="lazy"></iframe>
+          <div class="info-text">
+            <h3>📍 Adresse</h3>
+            <p>Université Général Lansana Conté de Sonfonia, Conakry, Guinée</p>
+            <h3>📞 Téléphone</h3>
+            <p>+224 622 000 000</p>
+            <h3>📧 Email</h3>
+            <p>contact@monsite.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h3>Gestion Patients</h3>
+      <p>© 2025 Gestion Patients. Tous droits réservés.</p>
+      <p>La solution simple et efficace pour gérer vos patients.</p>
+    </div>
+
+    <div class="footer-section contact">
+      <h4>Contact</h4>
+      <p>📞 +224 123 456 789</p>
+      <p>✉️ contact@gestionpatients.com</p>
+      <p>🏢 Rue de la Santé, Conakry, Guinée</p>
+    </div>
+
+    <div class="footer-section social">
+      <h4>Suivez-nous</h4>
+      <a href="#" aria-label="Facebook" class="social-icon">🔵 Facebook</a><br>
+      <a href="#" aria-label="Twitter" class="social-icon">🐦 Twitter</a><br>
+      <a href="#" aria-label="LinkedIn" class="social-icon">🔗 LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

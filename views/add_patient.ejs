@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajouter un Patient</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #2193b0, #6dd5ed);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      width: 100%;
+      height: 100vh;
+      position: relative;
+  overflow: hidden;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 0px 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+      max-width: 800px;
+      width: 100%;
+      padding-bottom: 20px;
+      /* height: 480px; */
+    }
+
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 30px;
+    }
+
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #2193b0;
+    }
+
+    .full-width {
+      grid-column: span 2;
+    }
+
+    button {
+      padding: 12px;
+      width: 100%;
+      background-color: #2193b0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #176d85;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      grid-column: span 2;
+      text-align: center;
+    }
+.background-circles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+}
+
+.background-circles li {
+  position: absolute;
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.3);
+  animation: animate 18s linear infinite;
+  bottom: -150px;
+  border-radius: 50%;
+}
+
+/* Bulles personnalisées */
+.background-circles li:nth-child(1)  { left: 10%; width: 40px; height: 40px; animation-duration: 25s; }
+.background-circles li:nth-child(2)  { left: 20%; width: 60px; height: 60px; animation-duration: 18s; }
+.background-circles li:nth-child(3)  { left: 30%; width: 25px; height: 25px; animation-duration: 20s; }
+.background-circles li:nth-child(4)  { left: 40%; width: 80px; height: 80px; animation-duration: 30s; }
+.background-circles li:nth-child(5)  { left: 50%; width: 35px; height: 35px; animation-duration: 15s; }
+.background-circles li:nth-child(6)  { left: 60%; width: 45px; height: 45px; animation-duration: 23s; }
+.background-circles li:nth-child(7)  { left: 70%; width: 20px; height: 20px; animation-duration: 22s; }
+.background-circles li:nth-child(8)  { left: 80%; width: 65px; height: 65px; animation-duration: 27s; }
+.background-circles li:nth-child(9)  { left: 90%; width: 55px; height: 55px; animation-duration: 20s; }
+.background-circles li:nth-child(10) { left: 15%; width: 25px; height: 25px; animation-duration: 19s; }
+.background-circles li:nth-child(11) { left: 35%; width: 50px; height: 50px; animation-duration: 21s; }
+.background-circles li:nth-child(12) { left: 65%; width: 30px; height: 30px; animation-duration: 24s; }
+.background-circles li:nth-child(13) { left: 75%; width: 60px; height: 60px; animation-duration: 17s; }
+.background-circles li:nth-child(14) { left: 85%; width: 20px; height: 20px; animation-duration: 28s; }
+.background-circles li:nth-child(15) { left: 95%; width: 40px; height: 40px; animation-duration: 26s; }
+
+@keyframes animate {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-1000px) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <ul class="background-circles">
+  <li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li>
+</ul>
+
+  <div class="form-container">
+    <h2>Formulaire d'ajout de patient</h2>
+    <form id="patientForm" action="/patient/ajouter" method="post">
+      <div class="form-grid">
+        <div>
+          <label for="nom">Nom</label>
+          <input type="text" name="nom" id="nom" placeholder="Nom" required>
+        </div>
+
+        <div>
+          <label for="prenom">Prénom</label>
+          <input type="text" name="prenom" id="prenom" placeholder="Prénom" required>
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Email" required>
+        </div>
+
+        <div>
+          <label for="age">Âge</label>
+          <input type="number" name="age" id="age" placeholder="Âge" required>
+        </div>
+
+        <div>
+          <label for="sexe">Sexe</label>
+          <select name="sexe" id="sexe" required>
+            <option value="">Choisir</option>
+            <option value="Homme">Homme</option>
+            <option value="Femme">Femme</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="fonction">Fonction</label>
+          <input type="text" name="fonction" id="fonction" placeholder="Fonction" required>
+        </div>
+
+        <div>
+          <label for="dateConsultation">Date consultation</label>
+          <input type="date" name="dateConsultation" id="dateConsultation" required>
+        </div>
+
+        <div>
+          <label for="password">Mot de passe</label>
+          <input type="password" name="password" id="password" placeholder="Mot de passe" required>
+        </div>
+
+        <div class="full-width">
+          <label for="cpassword">Confirmer le mot de passe</label>
+          <input type="password" name="cpassword" id="cpassword" placeholder="Confirmer votre mot de passe" required>
+        </div>
+
+        <div id="errorMsg" class="error"></div>
+
+        <div class="full-width">
+          <button type="submit">Ajouter</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('patientForm');
+    const password = document.getElementById('password');
+    const cpassword = document.getElementById('cpassword');
+    const errorMsg = document.getElementById('errorMsg');
+
+    form.addEventListener('submit', function (e) {
+      if (password.value !== cpassword.value) {
+        e.preventDefault();
+        errorMsg.textContent = "Les mots de passe ne correspondent pas.";
+      } else {
+        errorMsg.textContent = "";
+      }
+    });
+  </script>
+
+</body>
+
+</html>

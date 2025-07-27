@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <%- include ('./header') %>
+    <br><br>
+    <h1>Modifier un patient</h1>
+    <form action="/patient/modifier/<%= patient.id %>" method="post">
+        <input type="text" name="nom", id="nom" value="<%= patient.nom %>" placeholder="nom"><br><br>
+        <input type="text" name="prenom", id="prenom" value="<%= patient.prenom %>" placeholder="prenom"><br><br>
+        <input type="text" name="email", id="email" value="<%= patient.email %>" placeholder="email"><br><br>
+        <input type="number" name="age", id="age" value="<%= patient.age %>" placeholder="age"><br><br>
+        <input type="text" name="sexe", id="sexe" value="<%= patient.sexe %>" placeholder="sexe"><br><br>
+        <input type="text" name="fonction", id="fonction" value="<%= patient.fonction %>" placeholder="fonction"><br><br>
+
+        <input type="submit" value="modifier">
+    </form>
+</body>
+</html>

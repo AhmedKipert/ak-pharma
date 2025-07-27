@@ -1,0 +1,136 @@
+/* Dossier patient : styles principaux */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f8fa;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.header-dossier {
+  background-color: #005b96;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.btn-retour {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  color: white;
+  background: #003f6b;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.btn-retour:hover {
+  background: #002f50;
+}
+
+h1, h2 {
+  margin-bottom: 10px;
+}
+
+section {
+  margin: 30px auto;
+  max-width: 900px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Formulaire d'ajout */
+.form-ajout-dossier input[type="text"],
+.form-ajout-dossier textarea,
+.form-ajout-dossier input[type="date"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.form-ajout-dossier button {
+  background-color: #005b96;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.form-ajout-dossier button:hover {
+  background-color: #003f6b;
+}
+
+/* Liste des dossiers */
+.liste-dossiers .dossier-carte {
+  background: #f2f6fc;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border-left: 6px solid #005b96;
+}
+
+.liste-dossiers .dossier-carte h3 {
+  margin-top: 0;
+  color: #005b96;
+}
+
+.liste-dossiers .dossier-carte p {
+  margin: 8px 0;
+}
+
+.actions {
+  margin-top: 15px;
+}
+
+.actions a.btn-edit,
+.actions button.btn-delete {
+  text-decoration: none;
+  padding: 8px 14px;
+  margin-right: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+a.btn-edit {
+  background-color: #2e8b57;
+  color: white;
+}
+
+a.btn-edit:hover {
+  background-color: #1f6240;
+}
+
+button.btn-delete {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button.btn-delete:hover {
+  background-color: #c9302c;
+}
+
+/* Pied de page */
+.footer-global {
+  background-color: #005b96;
+  color: white;
+  text-align: center;
+  padding: 16px 10px;
+  margin-top: 60px;
+  border-top: 4px solid #003f6b;
+}

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Statistiques</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #f4f6fc;
+      --card: #fff;
+      --primary: #4f46e5;
+      --accent: #22d3ee;
+      --text: #333;
+      --shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      letter-spacing: 1px;
+      box-shadow: var(--shadow);
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      animation: fadeIn 0.8s ease-in;
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      color: #999;
+    }
+
+
+
+    .dashboard-intro {
+  padding: 2rem;
+  background: linear-gradient(to right, #1f2937, #111827);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.intro-card {
+  background: #272e3f;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, background 0.3s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.intro-card:hover {
+  transform: scale(1.03);
+  background: #323c51;
+}
+
+.intro-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.4rem;
+  color: #facc15;
+}
+
+.intro-card p {
+  margin: 0;
+  color: #cbd5e1;
+}
+
+.fade-in {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.cool-section {
+  padding: 3rem 2rem;
+  background: #f9fafb;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.cool-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #111827;
+  text-align: center;
+}
+
+.cool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.cool-box {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+}
+
+.cool-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.cool-box h3 {
+  margin-bottom: 0.5rem;
+  color: #2563eb;
+}
+
+.cool-box p {
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.alt-bg {
+  background: #111827;
+  color: white;
+}
+
+.alert-list {
+  list-style: none;
+  padding: 0;
+  max-width: 600px;
+  margin: auto;
+}
+
+.alert-list li {
+  background: #1f2937;
+  margin-bottom: 0.8rem;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+footer {
+  background-color: #1f1f2e;
+  color: #fff;
+  padding: 50px 20px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-section {
+  flex: 1 1 200px;
+  margin: 20px;
+}
+
+.footer-section h2 {
+  color: #ffd700;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.footer-section ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #ffd700;
+}
+
+.footer-section p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.social-icons a img {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s;
+}
+
+.social-icons a:hover img {
+  transform: scale(1.2);
+  filter: brightness(0.8) sepia(1) hue-rotate(45deg);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  font-size: 13px;
+  color: #aaa;
+}
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+  </style>
+</head>
+<body>
+    <%- include('./composants/navbar.ejs') %>
+  <header>
+    Statistiques de gestion des patients
+  </header>
+<section class="dashboard-intro">
+  <div class="intro-grid">
+    <div class="intro-card fade-in">
+      <h3>👨‍⚕️ 215 Patients actifs</h3>
+      <p>Mise à jour quotidienne</p>
+    </div>
+    <div class="intro-card fade-in" style="animation-delay: 0.2s;">
+      <h3>💉 132 Consultations</h3>
+      <p>Ce mois-ci</p>
+    </div>
+    <div class="intro-card fade-in" style="animation-delay: 0.4s;">
+      <h3>👨‍⚕️ 12 Administrateurs</h3>
+      <p>Personnel autorisé</p>
+    </div>
+    <div class="intro-card fade-in" style="animation-delay: 0.6s;">
+      <h3>📈 97% Disponibilité</h3>
+      <p>Système en ligne</p>
+    </div>
+  </div>
+</section>
+
+  <div class="container">
+    <div class="card">
+      <h2>Répartition des patients par service</h2>
+      <canvas id="pieChart"></canvas>
+    </div>
+    <div class="card">
+      <h2>Admissions mensuelles</h2>
+      <canvas id="barChart"></canvas>
+    </div>
+  </div>
+
+  <!-- SECTION FONCTIONNALITÉS PREMIUM -->
+<section class="cool-section">
+  <h2>🌟 Fonctionnalités Premium</h2>
+  <div class="cool-grid">
+    <div class="cool-box">
+      <h3>Exportation PDF</h3>
+      <p>Générez automatiquement des rapports PDF de vos patients en un clic.</p>
+    </div>
+    <div class="cool-box">
+      <h3>Connexion biométrique</h3>
+      <p>Sécurisez l’accès par empreinte digitale ou reconnaissance faciale.</p>
+    </div>
+    <div class="cool-box">
+      <h3>Mode sombre intelligent</h3>
+      <p>Active automatiquement le mode sombre selon l’heure locale.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION ALERTES EN TEMPS RÉEL -->
+<section class="cool-section alt-bg">
+  <h2>⚡ Alertes Système en Temps Réel</h2>
+  <ul class="alert-list">
+    <li><span>🟢</span> Le serveur est opérationnel</li>
+    <li><span>🟠</span> 2 mises à jour de sécurité disponibles</li>
+    <li><span>🔴</span> Connexion lente détectée dans 1 poste infirmier</li>
+  </ul>
+</section>
+
+<!-- SECTION ROADMAP -->
+<section class="cool-section">
+  <h2>💼 Prochaines fonctionnalités</h2>
+  <div class="cool-grid">
+    <div class="cool-box">
+      <h3>Chat IA</h3>
+      <p>Posez des questions médicales à une intelligence artificielle intégrée.</p>
+    </div>
+    <div class="cool-box">
+      <h3>Historique cloud</h3>
+      <p>Archivage automatique des dossiers médicaux sur le cloud sécurisé.</p>
+    </div>
+    <div class="cool-box">
+      <h3>Statistiques prédictives</h3>
+      <p>Prévoir les pics d'affluence et les cas fréquents par zone.</p>
+    </div>
+  </div>
+</section>
+
+
+  <footer>
+  <div class="footer-container">
+    <div class="footer-section about">
+      <h2>À propos</h2>
+      <p>Notre application permet une gestion fluide et sécurisée des patients avec une interface intuitive pour les administrateurs.</p>
+    </div>
+    
+    <div class="footer-section links">
+      <h2>Liens utiles</h2>
+      <ul>
+        <li><a href="/accueil">Accueil</a></li>
+        <li><a href="/patients">Patients</a></li>
+        <li><a href="/admin">Administrateurs</a></li>
+        <li><a href="/statistiques">Statistiques</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section contact">
+      <h2>Contact</h2>
+      <ul>
+        <li>Email : fkipertino@gmail.com</li>
+        <li>Téléphone : +224 622 40 26 38</li>
+        <li>Adresse : Sonfonia, Conakry, Guinée</li>
+      </ul>
+    </div>
+
+    <div class="footer-section social">
+      <h2>Suivez-nous</h2>
+      <div class="social-icons">
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"></a>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="LinkedIn"></a>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733635.png" alt="YouTube"></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 PaDB. Tous droits réservés. Conçu par Kipertino.</p>
+  </div>
+</footer>
+
+
+  <script>
+    // Données fictives
+    const barChart = new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
+        datasets: [{
+          label: 'Patients admis',
+          data: [40, 55, 32, 70, 61, 45],
+          backgroundColor: 'rgba(79, 70, 229, 0.6)',
+          borderRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          title: { display: true, text: 'Admissions par mois', color: '#333' }
+        }
+      }
+    });
+
+    const pieChart = new Chart(document.getElementById('pieChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Urgence', 'Pédiatrie', 'Chirurgie', 'Cardiologie'],
+        datasets: [{
+          data: [30, 25, 20, 25],
+          backgroundColor: [
+            '#4f46e5',
+            '#22d3ee',
+            '#10b981',
+            '#facc15'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' },
+          title: { display: true, text: 'Répartition des services', color: '#333' }
+        }
+      }
+    });
+  </script>
+  <script>
+  // Animation en chaîne lors du chargement
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.fade-in').forEach((el, index) => {
+      el.style.animationDelay = `${index * 0.2}s`;
+      el.classList.add('fade-in');
+    });
+  });
+</script>
+</body>
+</html>

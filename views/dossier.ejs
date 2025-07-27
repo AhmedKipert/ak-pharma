@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dossier Médical - = patient.nom %></title>
+  <link rel="stylesheet" href="/css/dossiers.css" />
+</head>
+<body>
+  <header class="header-dossier">
+    <h1>Dossier Médical de = patient.nom %> = patient.prenom %></h1>
+    <a href="/patients/liste" class="btn-retour">← Retour à la liste</a>
+  </header>
+
+  <section class="form-ajout-dossier">
+    <h2>Ajouter un nouveau dossier</h2>
+    <form action="/patients/= patient._id %>/dossiers" method="POST">
+      <input type="text" name="titre" placeholder="Titre du dossier" required />
+      <textarea name="description" placeholder="Description / Observations" rows="4" required></textarea>
+      <input type="date" name="date" required />
+      <button type="submit">Enregistrer</button>
+    </form>
+  </section>
+
+  <section class="liste-dossiers">
+    <h2>Historique des dossiers</h2>
+     if (dossiers.length === 0) { %>
+      <p>Aucun dossier enregistré pour ce patient.</p>
+     } else { %>
+       dossiers.forEach(dossier => { %>
+        <div class="dossier-carte">
+          <h3>= dossier.titre %></h3>
+          <p><strong>Date :</strong> = dossier.date.toLocaleDateString() %></p>
+          <p>= dossier.description %></p>
+          <div class="actions">
+            <a href="/patients/= patient._id %>/dossiers/= dossier._id %>/edit" class="btn-edit">Modifier</a>
+            <form action="/patients/= patient._id %>/dossiers/= dossier._id %>?_method=DELETE" method="POST" class="form-suppr">
+              <button type="submit" class="btn-delete">Supprimer</button>
+            </form>
+          </div>
+        </div>
+       }) %>
+     } %>
+  </section>
+
+  <footer class="footer-global">
+    <p>&copy; 2025 Solution de gestion médicale. Tous droits réservés.</p>
+  </footer>
+
+
+  <script>
+    // public/js/dossiers.js
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleDetailsBtns = document.querySelectorAll(".btn-toggle-details");
+
+  toggleDetailsBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const details = btn.closest(".dossier-card").querySelector(".dossier-details");
+      details.classList.toggle("visible");
+      btn.textContent = details.classList.contains("visible") ? "Masquer les détails" : "Afficher les détails";
+    });
+  });
+
+  const searchInput = document.querySelector("#searchDossier");
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      const dossiers = document.querySelectorAll(".dossier-card");
+
+      dossiers.forEach((dossier) => {
+        const nom = dossier.querySelector("h3").textContent.toLowerCase();
+        dossier.style.display = nom.includes(query) ? "block" : "none";
+      });
+    });
+  }
+
+  const addBtn = document.querySelector("#addDossierBtn");
+  if (addBtn) {
+    addBtn.addEventListener("click", () => {
+      window.location.href = "/dossiers/nouveau";
+    });
+  }
+});
+
+  </script>
+</body>
+</html>

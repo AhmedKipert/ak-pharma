@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dossier Médical</title>
+  <link rel="stylesheet" href="/css/dossier.css" />
+</head>
+<body>
+    <%- include('./composants/navbar.ejs') %>
+  <div class="container">
+    <h1>Dossier Médical du Patient</h1>
+    <div class="infos-patient">
+      <h2>%= dossier.patient.nom %> %= dossier.patient.prenom %></h2>
+      <p><strong>Date de naissance :</strong> %= dossier.patient.dateNaissance.toDateString() %></p>
+      <p><strong>Sexe :</strong> %= dossier.patient.sexe %></p>
+      <p><strong>Téléphone :</strong> %= dossier.patient.telephone %></p>
+    </div>
+
+    <div class="dossier-content">
+      <form action="/dossiers/%= dossier._id %>?_method=PUT" method="POST">
+        <div class="form-group">
+          <label>Antécédents médicaux</label>
+          <textarea name="antecedents" rows="3">%= dossier.antecedents %></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Allergies</label>
+          <textarea name="allergies" rows="2">%= dossier.allergies %></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Médicaments en cours</label>
+          <textarea name="medicaments" rows="2">%= dossier.medicaments %></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Dernière consultation</label>
+          <input type="date" name="derniereConsultation" value="%= dossier.derniereConsultation.toISOString().split('T')[0] %>"/>
+        </div>
+
+        <div class="form-group">
+          <label>Commentaires</label>
+          <textarea name="commentaires" rows="4">%= dossier.commentaires %></textarea>
+        </div>
+
+        <button type="submit" class="btn">Mettre à jour</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+<style>
+    body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f6f9fc;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  max-width: 900px;
+  margin: 50px auto;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+h1 {
+  text-align: center;
+  color: #0055a5;
+  margin-bottom: 30px;
+}
+
+.infos-patient {
+  background: #e3f2fd;
+  padding: 20px;
+  border-left: 6px solid #2196f3;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.infos-patient h2 {
+  margin-top: 0;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+textarea, input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  resize: vertical;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #1976d2;
+}
+
+</style>
