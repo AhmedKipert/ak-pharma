@@ -5,7 +5,7 @@ const mongoose = require('mongoose'); // importation de mongoose
 const mainRouter = require('./routes/mainRouter'); // routeur principal
 const adminRouter = require('./routes/adminRouter'); // routeur admin
 const patientRouter = require('./routes/patientRouter'); // routeur patient
-
+const PORT = process.env.PORT || 3000;
 const app = express(); // création du serveur
 
 
@@ -30,6 +30,6 @@ app.use(patientRouter);
 
 
 // LANCEMENT DU SERVEUR
-app.listen(process.env.PORT, () => {
+app.listen(PORT, () => {
     console.log("Serveur en écoute au port 3000");
 });
