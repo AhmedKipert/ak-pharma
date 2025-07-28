@@ -24,7 +24,7 @@ app.use(patientRouter);
 
 // CONNEXION A LA BASE DE DONNEES
 (async () => {
-    await mongoose.connect(process.env.MONGO_URI_LOCAL);
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('Connexion réussie à MongoDB Atlas');
 })();
 
