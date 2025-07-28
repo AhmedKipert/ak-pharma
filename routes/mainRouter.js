@@ -25,6 +25,9 @@ mainRouter.get('/do', mainController.getDo);
 mainRouter.get('/rendezvous', mainController.getRendezvous);
 
 
+// Demo 
+mainRouter.get('/demo', mainController.getDemo);
+
 
 
 module.exports = mainRouter;

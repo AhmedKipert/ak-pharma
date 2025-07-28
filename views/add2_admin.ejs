@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajout Administrateur</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #007bff, #00c6ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+      transform: translateY(0);
+      transition: all 0.4s ease;
+    }
+
+    .form-container:hover {
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+      position: relative;
+    }
+
+    h2::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: #007bff;
+      margin: 10px auto;
+      transition: width 0.3s ease;
+    }
+
+    .form-container:hover h2::after {
+      width: 80px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #444;
+      transition: all 0.3s ease;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+      transform: scale(1.02);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+
+    button:focus:not(:active)::after {
+      animation: ripple 0.6s ease-out;
+    }
+
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      height: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      position: absolute;
+      top: 12px;
+      left: 10px;
+      color: #999;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -18px;
+      left: 0;
+      font-size: 0.8em;
+      color: #007bff;
+      background: white;
+      padding: 0 5px;
+    }
+
+    .password-strength {
+      height: 5px;
+      background: #eee;
+      border-radius: 3px;
+      margin-top: -10px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    .password-strength-bar {
+      height: 100%;
+      width: 0;
+      background: #ff0000;
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+
+    .success-message {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #28a745;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 5px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      transform: translateX(200%);
+      transition: transform 0.4s ease;
+      z-index: 1000;
+    }
+
+    .success-message.show {
+      transform: translateX(0);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    .shake {
+      animation: shake 0.6s;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <h2>Ajouter un Administrateur</h2>
+    <form id="adminForm" action="/admin/ajouter" method="post">
+      <div class="input-group">
+        <input type="text" name="nom" id="name" required placeholder=" ">
+        <label for="name">Nom complet</label>
+      </div>
+
+      <div class="input-group">
+        <input type="email" name="email" id="email" required placeholder=" ">
+        <label for="email">Email</label>
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="password" id="password" required placeholder=" ">
+        <label for="password">Mot de passe</label>
+        <div class="password-strength">
+          <div class="password-strength-bar" id="passwordStrength"></div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="confirmPassword" id="confirmPassword" required placeholder=" ">
+        <label for="confirmPassword">Confirmer le mot de passe</label>
+      </div>
+
+      <div class="input-group">
+        <input type="text" name="role" id="role" value="admin" required placeholder=" ">
+        <label for="role">Rôle</label>
+      </div>
+
+      <div id="errorMsg" class="error"></div>
+
+      <button type="submit" id="submitBtn">Ajouter</button>
+    </form>
+  </div>
+
+  <div class="success-message" id="successMessage">
+    Administrateur ajouté avec succès!
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('adminForm');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+      const passwordStrength = document.getElementById('passwordStrength');
+      const errorMsg = document.getElementById('errorMsg');
+      const submitBtn = document.getElementById('submitBtn');
+      const successMessage = document.getElementById('successMessage');
+      const formContainer = document.querySelector('.form-container');
+
+      // Animation des labels flottants
+      const inputs = document.querySelectorAll('.input-group input');
+      inputs.forEach(input => {
+        if (input.value) {
+          input.nextElementSibling.style.top = '-18px';
+          input.nextElementSibling.style.fontSize = '0.8em';
+          input.nextElementSibling.style.color = '#007bff';
+          input.nextElementSibling.style.background = 'white';
+          input.nextElementSibling.style.padding = '0 5px';
+        }
+      });
+
+      // Vérification de la force du mot de passe
+      passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        let strength = 0;
+        
+        if (password.length >= 8) strength += 1;
+        if (password.match(/[a-z]/)) strength += 1;
+        if (password.match(/[A-Z]/)) strength += 1;
+        if (password.match(/[0-9]/)) strength += 1;
+        if (password.match(/[^a-zA-Z0-9]/)) strength += 1;
+        
+        let width = strength * 20;
+        let color = '#ff0000';
+        
+        if (strength >= 4) color = '#28a745';
+        else if (strength >= 2) color = '#ffc107';
+        
+        passwordStrength.style.width = width + '%';
+        passwordStrength.style.background = color;
+      });
+
+      // Validation en temps réel
+      confirmPasswordInput.addEventListener('input', function() {
+        if (this.value !== passwordInput.value) {
+          errorMsg.textContent = 'Les mots de passe ne correspondent pas';
+        } else {
+          errorMsg.textContent = '';
+        }
+      });
+
+      // Validation du formulaire
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Réinitialiser les erreurs
+        errorMsg.textContent = '';
+        formContainer.classList.remove('shake');
+        
+        // Validation simple
+        if (passwordInput.value !== confirmPasswordInput.value) {
+          errorMsg.textContent = 'Les mots de passe ne correspondent pas';
+          formContainer.classList.add('shake');
+          return;
+        }
+        
+        if (passwordInput.value.length < 8) {
+          errorMsg.textContent = 'Le mot de passe doit contenir au moins 8 caractères';
+          formContainer.classList.add('shake');
+          return;
+        }
+        
+        // Simulation d'envoi réussi
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Envoi en cours...';
+        
+        setTimeout(function() {
+          successMessage.classList.add('show');
+          form.reset();
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Ajouter';
+          
+          // Réinitialiser la force du mot de passe
+          passwordStrength.style.width = '0';
+          
+          setTimeout(function() {
+            successMessage.classList.remove('show');
+          }, 3000);
+        }, 1500);
+      });
+    });
+  </script>
+</body>
+
+</html>

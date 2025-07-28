@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contactez-nous | MedTrack</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #007BFF;
+      --primary-dark: #0056b3;
+      --primary-light: #e9f0ff;
+      --secondary-color: #ffcc00;
+      --bg-light: #f8f9fa;
+      --text-dark: #333;
+      --text-light: #666;
+      --text-white: #fff;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+      --transition: all 0.3s ease;
+      --border-radius: 12px;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      padding: 60px 20px;
+      background: linear-gradient(135deg, var(--primary-light), #f0f7ff);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-section::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background-color: rgba(0, 123, 255, 0.05);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .contact-section::after {
+      content: "";
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 300px;
+      height: 300px;
+      background-color: rgba(0, 123, 255, 0.05);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-title {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .contact-title::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--secondary-color);
+      border-radius: 2px;
+    }
+
+    .contact-subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 50px;
+      color: var(--text-light);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Contact Grid */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background: var(--text-white);
+      padding: 40px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .contact-form:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .contact-form::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: var(--transition);
+      background-color: #f9f9f9;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+      background-color: var(--text-white);
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    /* Contact Info */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .contact-map {
+      height: 300px;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .contact-map:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .contact-map iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .info-card {
+      background: var(--text-white);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 20px;
+      position: relative;
+      padding-left: 35px;
+    }
+
+    .info-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 25px;
+      height: 25px;
+      background-color: var(--primary-light);
+      border-radius: 50%;
+    }
+
+    .info-item i {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      position: absolute;
+      left: 5px;
+      top: 10px;
+      z-index: 1;
+    }
+
+    .info-content h3 {
+      margin: 0 0 5px;
+      color: var(--primary-dark);
+      font-size: 1.1rem;
+    }
+
+    .info-content p, 
+    .info-content a {
+      margin: 0;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .info-content a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Button */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: var(--primary-color);
+      color: var(--text-white);
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+      width: 100%;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+    }
+
+    .btn i {
+      font-size: 1.1rem;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #004080;
+      color: var(--text-white);
+      padding: 50px 20px 30px;
+      position: relative;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-section {
+      margin-bottom: 20px;
+    }
+
+    .footer-section h3 {
+      color: #aad4ff;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-section h3::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--secondary-color);
+      border-radius: 2px;
+    }
+
+    .footer-section p {
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    .footer-section a {
+      color: var(--text-white);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .footer-section a:hover {
+      color: var(--secondary-color);
+      transform: translateX(5px);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      font-size: 1.2rem;
+    }
+
+    .social-links a:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .contact-title {
+        font-size: 2.2rem;
+      }
+      
+      .contact-subtitle {
+        font-size: 1rem;
+      }
+      
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-form {
+        padding: 25px;
+      }
+      
+      .info-item {
+        padding-left: 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-title {
+        font-size: 1.8rem;
+      }
+      
+      .btn {
+        padding: 12px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <%- include('./composants/deepnav.ejs') %>
+
+  <section class="contact-section">
+    <div class="container">
+      <h1 class="contact-title"><i class="fas fa-paper-plane"></i> Contactez-nous</h1>
+      <p class="contact-subtitle">Une question, une demande particulière ou simplement envie d'en savoir plus ? Notre équipe se fera un plaisir de vous répondre sous 24 heures.</p>
+
+      <div class="contact-grid">
+        <!-- Formulaire de contact -->
+        <div class="contact-form">
+          <form action="/envoyer-message" method="POST">
+            <div class="form-group">
+              <label for="nom">Votre nom complet</label>
+              <input type="text" id="nom" name="nom" required placeholder="Jean Dupont">
+            </div>
+            <div class="form-group">
+              <label for="email">Votre adresse e-mail</label>
+              <input type="email" id="email" name="email" required placeholder="votre@email.com">
+            </div>
+            <div class="form-group">
+              <label for="message">Votre message</label>
+              <textarea id="message" name="message" rows="6" required placeholder="Dites-nous comment nous pouvons vous aider..."></textarea>
+            </div>
+            <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Envoyer mon message</button>
+          </form>
+        </div>
+
+        <!-- Carte et infos -->
+        <div class="contact-info">
+          <div class="contact-map">
+            <iframe src="https://www.google.com/maps?q=université+sonfonia+conakry&output=embed" frameborder="0" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+          
+          <div class="info-card">
+            <div class="info-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div class="info-content">
+                <h3>Adresse</h3>
+                <p>Université Général Lansana Conté de Sonfonia, Conakry, Guinée</p>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <i class="fas fa-phone-alt"></i>
+              <div class="info-content">
+                <h3>Téléphone</h3>
+                <p><a href="tel:+224622000000">+224 622 000 000</a></p>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <i class="fas fa-envelope"></i>
+              <div class="info-content">
+                <h3>Email</h3>
+                <p><a href="mailto:contact@monsite.com">contact@monsite.com</a></p>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <i class="fas fa-clock"></i>
+              <div class="info-content">
+                <h3>Heures d'ouverture</h3>
+                <p>Lundi-Vendredi: 8h-18h<br>Samedi: 9h-13h</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-section about">
+        <h3>MedTrack</h3>
+        <p>La solution innovante pour la gestion médicale, conçue pour simplifier votre pratique et améliorer l'expérience patient.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-section links">
+        <h3>Liens utiles</h3>
+        <a href="/fonctionnalites">Fonctionnalités</a>
+        <a href="/tarifs">Tarifs</a>
+        <a href="/demo">Démonstration</a>
+        <a href="/blog">Blog</a>
+        <a href="/faq">FAQ</a>
+      </div>
+
+      <div class="footer-section contact">
+        <h3>Contact rapide</h3>
+        <p><i class="fas fa-phone-alt"></i> +224 123 456 789</p>
+        <p><i class="fas fa-envelope"></i> contact@medtrack.com</p>
+        <p><i class="fas fa-map-marker-alt"></i> Rue de la Santé, Conakry, Guinée</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 MedTrack. Tous droits réservés. | <a href="/confidentialite">Politique de confidentialité</a> | <a href="/cgu">CGU</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Animation des éléments au scroll
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.contact-form, .info-card');
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
+
+        if (elementPosition < screenPosition) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
+      });
+    };
+
+    // Initial state for animation
+    document.querySelectorAll('.contact-form, .info-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'all 0.6s ease-out';
+    });
+
+    window.addEventListener('load', animateOnScroll);
+    window.addEventListener('scroll', animateOnScroll);
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>

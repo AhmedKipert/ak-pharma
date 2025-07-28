@@ -3,13 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gestion Patients - Landing Page</title>
+  <title>AK-Pharma - Gestion Patients Moderne</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --main-color: #007bff;
+      --primary-color: #1976d2;
+      --primary-dark: #0d47a1;
+      --primary-light: #e0ecff;
+      --secondary-color: #ffcc00;
       --bg-color: #f9f9f9;
       --text-dark: #333;
       --text-light: #666;
+      --text-white: #fff;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+      --transition: all 0.3s ease;
+      --border-radius: 12px;
     }
 
     * {
@@ -19,429 +29,758 @@
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background-color: var(--bg-color);
-      scroll-behavior: smooth;
+      color: var(--text-dark);
       line-height: 1.6;
+      scroll-behavior: smooth;
     }
 
-    header {
-      background: linear-gradient(to right, #007bff, #00c6ff);
-      color: #fff;
-      padding: 60px 20px;
-      text-align: center;
-      animation: fadeIn 1.5s ease-in-out;
+    /* Header/Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color), #00c6ff);
+      color: var(--text-white);
+      padding: 100px 20px;
+      position: relative;
+      overflow: hidden;
     }
 
-    header h1 {
-      font-size: 2.8em;
-      margin-bottom: 10px;
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
 
-    header p {
-      font-size: 1.2em;
-      margin-bottom: 30px;
+    .hero-text {
+      flex: 1;
+      min-width: 300px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-text h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(5px);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .badge:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
     }
 
     .btn {
-      background-color: #fff;
-      color: #007bff;
-      padding: 12px 25px;
-      border-radius: 25px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--text-white);
+      color: var(--primary-color);
+      padding: 12px 28px;
+      border-radius: 50px;
       text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
+      font-weight: 600;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
     }
 
     .btn:hover {
-      background-color: #e0e0e0;
+      background-color: #f0f0f0;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
     }
 
+    .btn-outline {
+      background: transparent;
+      color: var(--text-white);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      margin-left: 15px;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .hero-image {
+      flex: 1;
+      min-width: 300px;
+      position: relative;
+      animation: fadeIn 1s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+    }
+
+    .hero-image:hover img {
+      transform: scale(1.02);
+    }
+
+    /* Sections communes */
     section {
-      padding: 60px 20px;
-      max-width: 1000px;
-      margin: auto;
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    h2 {
+    .section-title {
       text-align: center;
-      margin-bottom: 40px;
-      font-size: 2em;
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
       color: var(--text-dark);
+      margin-bottom: 15px;
     }
 
+    .section-title p {
+      color: var(--text-light);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Features Section */
     .features {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
-      justify-content: center;
+      margin-top: 40px;
     }
 
-    .card {
-      background: #fff;
-      padding: 25px;
-      border-radius: 12px;
-      width: 280px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+    .feature-card {
+      background: var(--text-white);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
       opacity: 0;
       transform: translateY(30px);
+      border-top: 3px solid var(--primary-color);
     }
 
-    .card h3 {
+    .feature-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
       margin-bottom: 15px;
-      color: #007bff;
+      color: var(--primary-dark);
     }
 
-    .card:hover {
+    /* Reasons Section */
+    .reasons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .reason-card {
+      background: var(--text-white);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .reason-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .reason-image {
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .reason-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .reason-card:hover .reason-image img {
       transform: scale(1.05);
     }
 
-    .card.show {
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.8s ease-out;
+    .reason-content {
+      padding: 25px;
     }
 
+    .reason-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--primary-color);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background-color: var(--primary-light);
+      padding: 80px 20px;
+    }
+
+    .testimonial-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .testimonial-slider {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 30px;
+      padding: 20px 0;
+      scrollbar-width: none; /* Firefox */
+    }
+
+    .testimonial-slider::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
+
+    .testimonial-card {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      background: var(--text-white);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .testimonial-text::before {
+      content: '"';
+      font-size: 4rem;
+      color: var(--primary-color);
+      opacity: 0.2;
+      position: absolute;
+      top: -20px;
+      left: -15px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .author-info h4 {
+      margin-bottom: 5px;
+    }
+
+    .author-info p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+      color: var(--text-white);
+      padding: 80px 20px;
+      border-radius: var(--border-radius);
+      margin: 40px auto;
+      max-width: 1000px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .cta-section h2 {
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
     footer {
       background: #222;
       color: #aaa;
-      padding: 30px 20px;
+      padding: 60px 20px 30px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--text-white);
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+
+    .footer-about p {
+      margin-bottom: 20px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-links a {
+      color: var(--text-white);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--primary-light);
+    }
+
+    .footer-links h3 {
+      color: var(--text-white);
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: #aaa;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--text-white);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .copyright {
       text-align: center;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #444;
     }
 
+    /* Animations */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    @media (max-width: 768px) {
-      .features {
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-text {
+        display: flex;
         flex-direction: column;
         align-items: center;
       }
 
-      header h1 {
-        font-size: 2em;
+      .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
       }
 
-      .card {
-        width: 90%;
+      .btn-outline {
+        margin-left: 0;
       }
     }
 
-    .reasons {
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 30px;
-}
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 2.2rem;
+      }
 
-.reason-card {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
 
-.reason-card:hover {
-  transform: translateY(-5px);
-}
+      .feature-card, .reason-card {
+        padding: 20px;
+      }
+    }
 
-.reason-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
+    @media (max-width: 480px) {
+      .hero-section {
+        padding: 80px 20px;
+      }
 
-.reason-text {
-  padding: 20px;
-}
+      .hero-text h1 {
+        font-size: 1.8rem;
+      }
 
-.reason-text h3 {
-  margin-bottom: 10px;
-  color: #007bff;
-}
+      .badges {
+        justify-content: center;
+      }
 
-.reason-text p {
-  color: var(--text-light);
-  font-size: 0.95em;
-}
-
-@media (max-width: 900px) {
-  .reasons {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 600px) {
-  .reasons {
-    grid-template-columns: 1fr;
-  }
-}
-
-.hero-section {
-  background: linear-gradient(to right, #007bff, #00c6ff);
-  color: #fff;
-  padding: 80px 20px;
-  animation: fadeIn 1.5s ease-in-out;
-}
-
-.hero-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  max-width: 1200px;
-  margin: auto;
-  flex-wrap: wrap;
-}
-
-.hero-text {
-  flex: 1;
-  min-width: 280px;
-}
-
-.hero-text h1 {
-  font-size: 2.5em;
-  margin-bottom: 20px;
-}
-
-.hero-text p {
-  font-size: 1.1em;
-  margin-bottom: 20px;
-  color: #f0f0f0;
-}
-
-.hero-text .badges {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 25px;
-}
-
-.hero-text .badges li {
-  display: inline-block;
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 8px 16px;
-  border-radius: 20px;
-  margin: 5px;
-  font-size: 0.9em;
-}
-
-.hero-image {
-  flex: 1;
-  min-width: 280px;
-  text-align: center;
-}
-
-.hero-image img {
-  width: 100%;
-  max-width: 400px;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-@media (max-width: 768px) {
-  .hero-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .hero-text h1 {
-    font-size: 2em;
-  }
-
-  .hero-image img {
-    max-width: 80%;
-    margin-top: 20px;
-  }
-}
-
+      .btn {
+        padding: 10px 20px;
+      }
+    }
   </style>
 </head>
 <body>
 
-    <%- include('./composants/navbar.ejs') %>
+  <%- include('./composants/deepnav.ejs') %>
 
   <header class="hero-section">
-  <div class="hero-content">
-    <div class="hero-text">
-      <h1>Solution moderne pour la gestion de vos patients</h1>
-      <p>Centralisez les dossiers médicaux, planifiez les rendez-vous, suivez les statistiques de santé — tout depuis un tableau de bord intuitif.</p>
-      
-      <ul class="badges">
-        <li>Sécurité des données</li>
-        <li>Analyse en temps réel</li>
-        <li>Prise en main facile</li>
-      </ul>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Solution moderne pour la gestion de vos patients</h1>
+        <p>Centralisez les dossiers médicaux, planifiez les rendez-vous, suivez les statistiques de santé — tout depuis un tableau de bord intuitif.</p>
+        
+        <div class="badges">
+          <span class="badge"><i class="fas fa-shield-alt"></i> Sécurité des données</span>
+          <span class="badge"><i class="fas fa-chart-line"></i> Analyse en temps réel</span>
+          <span class="badge"><i class="fas fa-rocket"></i> Prise en main facile</span>
+        </div>
 
-      <a href="/decouvrir" class="btn">🚀 Découvrir la plateforme</a>
+        <div class="hero-buttons">
+          <a href="/decouvrir" class="btn"><i class="fas fa-play"></i> Découvrir la plateforme</a>
+          <a href="/demo" class="btn btn-outline"><i class="fas fa-eye"></i> Voir la démo</a>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="/img/doctor.jpg" alt="Dashboard médical AK-Pharma">
+      </div>
     </div>
-
-    <div class="hero-image">
-      <img style="height: 80%;" src="/img/doctor.jpg" alt="Dashboard médical">
-    </div>
-  </div>
-</header>
-
+  </header>
 
   <section id="about">
-  <h2>Pourquoi nous choisir ?</h2>
-  <p style="text-align:center; max-width: 700px; margin:auto; color: var(--text-light);">
-    Notre solution aide les professionnels de santé à centraliser les données médicales, automatiser la planification, 
-    et améliorer la qualité des soins avec des outils simples et efficaces.
-  </p>
-
-  <div class="reasons">
-    <div class="reason-card">
-      <img src="/img/woman.jpg" alt="Interface intuitive">
-      <div class="reason-text">
-        <h3>Interface intuitive</h3>
-        <p>Notre tableau de bord a été pensé pour une prise en main rapide, même sans formation technique.</p>
-      </div>
+    <div class="section-title">
+      <h2>Pourquoi choisir AK-Pharma ?</h2>
+      <p>Notre solution aide les professionnels de santé à centraliser les données médicales, automatiser la planification, et améliorer la qualité des soins avec des outils simples et efficaces.</p>
     </div>
 
-    <div class="reason-card">
-      <img src="/img/gaintemps.jpg" alt="Gain de temps">
-      <div class="reason-text">
-        <h3>Gain de temps</h3>
-        <p>Moins de paperasse, plus de soins. Automatisez vos tâches répétitives et concentrez-vous sur vos patients.</p>
+    <div class="reasons">
+      <div class="reason-card">
+        <div class="reason-image">
+          <img src="/img/woman.jpg" alt="Interface intuitive">
+        </div>
+        <div class="reason-content">
+          <h3><i class="fas fa-mouse-pointer"></i> Interface intuitive</h3>
+          <p>Notre tableau de bord a été pensé pour une prise en main rapide, même sans formation technique.</p>
+        </div>
       </div>
-    </div>
 
-    <div class="reason-card">
-      <img src="/img/supportclient.jpg" alt="Support client">
-      <div class="reason-text">
-        <h3>Support client 24/7</h3>
-        <p>Notre équipe vous accompagne à chaque étape avec un support humain et réactif, 7j/7.</p>
+      <div class="reason-card">
+        <div class="reason-image">
+          <img src="/img/gaintemps.jpg" alt="Gain de temps">
+        </div>
+        <div class="reason-content">
+          <h3><i class="fas fa-clock"></i> Gain de temps</h3>
+          <p>Moins de paperasse, plus de soins. Automatisez vos tâches répétitives et concentrez-vous sur vos patients.</p>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
 
-
-  <section id="features">
-    <h2>Fonctionnalités clés</h2>
-    <div class="features">
-      <div class="card">
-        <h3>Dossier Patient</h3>
-        <p>Accédez rapidement à l’historique complet de chaque patient.</p>
-      </div>
-      <div class="card">
-        <h3>⏱Rendez-vous</h3>
-        <p>Planification intuitive des consultations avec rappels automatiques.</p>
-      </div>
-      <div class="card">
-        <h3>Statistiques</h3>
-        <p>Analysez les données en temps réel pour une meilleure gestion clinique.</p>
-      </div>
-      <div class="card">
-        <h3>Sécurité</h3>
-        <p>Données cryptées et authentification sécurisée par rôle.</p>
+      <div class="reason-card">
+        <div class="reason-image">
+          <img src="/img/supportclient.jpg" alt="Support client">
+        </div>
+        <div class="reason-content">
+          <h3><i class="fas fa-headset"></i> Support client 24/7</h3>
+          <p>Notre équipe vous accompagne à chaque étape avec un support humain et réactif, 7j/7.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="cta" style="text-align: center;">
-    <h2>Prêt à commencer ?</h2>
-    <p style="margin-bottom: 25px;">Inscrivez-vous et prenez le contrôle de votre cabinet.</p>
-    <a href="/admin/login" class="btn">Connexion Admin</a>
+  <section id="features">
+    <div class="section-title">
+      <h2>Fonctionnalités clés</h2>
+      <p>Découvrez les outils puissants qui transformeront votre pratique médicale</p>
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-folder-open"></i>
+        </div>
+        <h3>Dossier Patient</h3>
+        <p>Accédez rapidement à l'historique complet de chaque patient avec une interface organisée et sécurisée.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-calendar-check"></i>
+        </div>
+        <h3>Gestion des Rendez-vous</h3>
+        <p>Planification intuitive des consultations avec rappels automatiques par SMS et email.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-chart-pie"></i>
+        </div>
+        <h3>Statistiques Avancées</h3>
+        <p>Analysez les données en temps réel pour une meilleure gestion clinique et administrative.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h3>Sécurité Maximale</h3>
+        <p>Données cryptées et authentification sécurisée par rôle conforme aux normes de santé.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-prescription"></i>
+        </div>
+        <h3>Ordonnances Numériques</h3>
+        <p>Créez et envoyez des ordonnances directement depuis la plateforme.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <h3>Application Mobile</h3>
+        <p>Accédez à vos données patients où que vous soyez grâce à notre application dédiée.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="testimonial-container">
+      <div class="section-title">
+        <h2>Témoignages</h2>
+        <p>Ce que nos utilisateurs disent de AK-Pharma</p>
+      </div>
+      
+      <div class="testimonial-slider">
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            <p>AK-Pharma a révolutionné la gestion de mon cabinet. Je gagne au moins 2 heures par jour sur l'administratif et je peux me concentrer sur mes patients.</p>
+          </div>
+          <div class="testimonial-author">
+            <img src="/img/doctor1.jpg" alt="Dr. Martin" class="author-avatar">
+            <div class="author-info">
+              <h4>Dr. Sophie Martin</h4>
+              <p>Médecin Généraliste, Paris</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            <p>La transition a été très simple et l'équipe de support est exceptionnelle. Je recommande AK-Pharma à tous mes confrères.</p>
+          </div>
+          <div class="testimonial-author">
+            <img src="/img/doctor2.jpg" alt="Dr. Lefevre" class="author-avatar">
+            <div class="author-info">
+              <h4>Dr. Jean Lefevre</h4>
+              <p>Dentiste, Lyon</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Prêt à transformer votre pratique médicale ?</h2>
+    <p>Rejoignez des centaines de professionnels de santé qui utilisent déjà AK-Pharma</p>
+    
+    <div class="cta-buttons">
+      <a href="/essai-gratuit" class="btn"><i class="fas fa-calendar-alt"></i> Essai gratuit 30 jours</a>
+      <a href="/contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Contactez-nous</a>
+    </div>
   </section>
 
   <footer>
-    © 2025 Gestion Patients. Tous droits réservés.
+    <div class="footer-container">
+      <div class="footer-about">
+        <a href="/" class="footer-logo">👨‍⚕️ AK-Pharma</a>
+        <p>La solution tout-en-un pour la gestion moderne des cabinets médicaux.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <h3>Produit</h3>
+        <ul>
+          <li><a href="/fonctionnalites">Fonctionnalités</a></li>
+          <li><a href="/tarifs">Tarifs</a></li>
+          <li><a href="/demo">Démo</a></li>
+          <li><a href="/nouveautes">Nouveautés</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-links">
+        <h3>Ressources</h3>
+        <ul>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/guides">Guides</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/support">Support</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-contact">
+        <h3>Contact</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Rue Médicale, 75000 Paris</p>
+        <p><i class="fas fa-phone"></i> +33 1 23 45 67 89</p>
+        <p><i class="fas fa-envelope"></i> contact@AK-Pharma.fr</p>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2025 AK-Pharma. Tous droits réservés. | <a href="/confidentialite">Politique de confidentialité</a> | <a href="/cgu">CGU</a></p>
+    </div>
   </footer>
 
   <script>
-    // Apparition animée des cartes au scroll
-    const cards = document.querySelectorAll('.card');
+    // Animation au scroll
+    const featureCards = document.querySelectorAll('.feature-card');
+    const reasonCards = document.querySelectorAll('.reason-card');
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
+    const animateOnScroll = (elements) => {
+      elements.forEach((element, index) => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
+
+        if (elementPosition < screenPosition) {
+          setTimeout(() => {
+            element.classList.add('show');
+          }, index * 150);
         }
       });
-    }, {
-      threshold: 0.2
+    };
+
+    window.addEventListener('scroll', () => {
+      animateOnScroll(featureCards);
+      animateOnScroll(reasonCards);
     });
 
-    cards.forEach(card => {
-      observer.observe(card);
-    });
+    // Initial check in case elements are already visible
+    animateOnScroll(featureCards);
+    animateOnScroll(reasonCards);
+
+    // Testimonial slider
+    let currentTestimonial = 0;
+    const testimonials = document.querySelectorAll('.testimonial-card');
+    const testimonialCount = testimonials.length;
+
+    function showTestimonial(index) {
+      testimonials.forEach((testimonial, i) => {
+        testimonial.style.display = i === index ? 'block' : 'none';
+      });
+    }
+
+    function nextTestimonial() {
+      currentTestimonial = (currentTestimonial + 1) % testimonialCount;
+      showTestimonial(currentTestimonial);
+    }
+
+    // Auto-rotate testimonials every 5 seconds
+    setInterval(nextTestimonial, 5000);
+
+    // Initialize
+    showTestimonial(0);
   </script>
-  <script>
-  particlesJS("particles-js", {
-    "particles": {
-      "number": {
-        "value": 80,
-        "density": {
-          "enable": true,
-          "value_area": 800
-        }
-      },
-      "color": {
-        "value": "#ffffff"
-      },
-      "shape": {
-        "type": "circle",
-        "stroke": {
-          "width": 0,
-          "color": "#000000"
-        }
-      },
-      "opacity": {
-        "value": 0.4,
-        "random": true
-      },
-      "size": {
-        "value": 3,
-        "random": true
-      },
-      "line_linked": {
-        "enable": true,
-        "distance": 150,
-        "color": "#ffffff",
-        "opacity": 0.3,
-        "width": 1
-      },
-      "move": {
-        "enable": true,
-        "speed": 3,
-        "direction": "none",
-        "out_mode": "out"
-      }
-    },
-    "interactivity": {
-      "detect_on": "canvas",
-      "events": {
-        "onhover": {
-          "enable": true,
-          "mode": "grab"
-        },
-        "onclick": {
-          "enable": true,
-          "mode": "push"
-        }
-      },
-      "modes": {
-        "grab": {
-          "distance": 200,
-          "line_linked": {
-            "opacity": 0.5
-          }
-        },
-        "push": {
-          "particles_nb": 4
-        }
-      }
-    },
-    "retina_detect": true
-  });
-</script>
-
 </body>
 </html>

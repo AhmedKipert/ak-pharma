@@ -23,7 +23,7 @@ exports.getDecouverte = (req, res) => {
 
 // CONTACT
 exports.getContact = (req, res) => {
-    res.render('contact');
+    res.render('contact2');
 }
 
 // DOSSIER PATIENT
@@ -49,3 +49,6 @@ exports.getRendezvous = async(req, res) => {
     res.render('rendezvous', {patient});
 }
 
+exports.getDemo = (req, res) => {
+    res.render('demo');
+}

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modifier Administrateur</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #007bff, #00c6ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+      transform: translateY(0);
+      transition: all 0.4s ease;
+    }
+
+    .form-container:hover {
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+      position: relative;
+    }
+
+    h2::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: #007bff;
+      margin: 10px auto;
+      transition: width 0.3s ease;
+    }
+
+    .form-container:hover h2::after {
+      width: 80px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #444;
+      transition: all 0.3s ease;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+      transform: scale(1.02);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-save {
+      background-color: #28a745;
+    }
+
+    .btn-save:hover {
+      background-color: #218838;
+      transform: translateY(-2px);
+    }
+
+    .btn-cancel {
+      background-color: #6c757d;
+    }
+
+    .btn-cancel:hover {
+      background-color: #5a6268;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+
+    button:focus:not(:active)::after {
+      animation: ripple 0.6s ease-out;
+    }
+
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      height: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      position: absolute;
+      top: 12px;
+      left: 10px;
+      color: #999;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -18px;
+      left: 0;
+      font-size: 0.8em;
+      color: #007bff;
+      background: white;
+      padding: 0 5px;
+    }
+
+    .status-toggle {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .toggle-label {
+      margin-right: 15px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #28a745;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    .shake {
+      animation: shake 0.6s;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <h2>Modifier l'Administrateur</h2>
+    <form id="editAdminForm" action="/admin/modifier/<%= admin._id %>" method="post">
+      <div class="input-group">
+        <input type="text" name="nom" id="name" required placeholder=" " value="<%= admin.nom %>">
+        <label for="name">Nom complet</label>
+      </div>
+
+      <div class="input-group">
+        <input type="email" name="email" id="email" required placeholder=" " value="<%= admin.email %>">
+        <label for="email">Email</label>
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="password" id="password" placeholder=" ">
+        <label for="password">Nouveau mot de passe (laisser vide pour ne pas changer)</label>
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder=" ">
+        <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
+      </div>
+
+      <div class="input-group">
+        <input type="text" name="role" id="role" required placeholder=" " value="<%= admin.role %>">
+        <label for="role">Rôle</label>
+      </div>
+
+      <div class="status-toggle">
+        <span class="toggle-label">Statut :</span>
+        <label class="toggle-switch">
+          <input type="checkbox" name="active" <%= admin.active ? 'checked' : '' %>>
+          <span class="slider"></span>
+        </label>
+        <span style="margin-left: 10px; font-weight: bold; color: <%= admin.active ? '#28a745' : '#6c757d' %>">
+          <%= admin.active ? 'Actif' : 'Inactif' %>
+        </span>
+      </div>
+
+      <div id="errorMsg" class="error"></div>
+
+      <div class="btn-group">
+        <button type="submit" class="btn-save">Enregistrer</button>
+        <a href="/admin/liste" class="btn-cancel" style="text-align: center; text-decoration: none;">Annuler</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('editAdminForm');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+      const errorMsg = document.getElementById('errorMsg');
+      const saveBtn = form.querySelector('.btn-save');
+      const statusToggle = document.querySelector('.toggle-switch input');
+      const statusLabel = document.querySelector('.status-toggle span:last-child');
+      const formContainer = document.querySelector('.form-container');
+
+      // Animation des labels flottants
+      const inputs = document.querySelectorAll('.input-group input');
+      inputs.forEach(input => {
+        if (input.value) {
+          input.nextElementSibling.style.top = '-18px';
+          input.nextElementSibling.style.fontSize = '0.8em';
+          input.nextElementSibling.style.color = '#007bff';
+          input.nextElementSibling.style.background = 'white';
+          input.nextElementSibling.style.padding = '0 5px';
+        }
+      });
+
+      // Toggle switch animation
+      statusToggle.addEventListener('change', function() {
+        if (this.checked) {
+          statusLabel.textContent = 'Actif';
+          statusLabel.style.color = '#28a745';
+        } else {
+          statusLabel.textContent = 'Inactif';
+          statusLabel.style.color = '#6c757d';
+        }
+      });
+
+      // Validation du formulaire
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Réinitialiser les erreurs
+        errorMsg.textContent = '';
+        formContainer.classList.remove('shake');
+        
+        // Validation des mots de passe
+        if (passwordInput.value || confirmPasswordInput.value) {
+          if (passwordInput.value !== confirmPasswordInput.value) {
+            errorMsg.textContent = 'Les mots de passe ne correspondent pas';
+            formContainer.classList.add('shake');
+            return;
+          }
+          
+          if (passwordInput.value.length < 8) {
+            errorMsg.textContent = 'Le mot de passe doit contenir au moins 8 caractères';
+            formContainer.classList.add('shake');
+            return;
+          }
+        }
+        
+        // Simulation d'envoi réussi
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = 'Enregistrement en cours...';
+        
+        // Ici, tu devras remplacer par ton appel backend réel
+        setTimeout(function() {
+          // Après la réussite de l'envoi, tu peux rediriger ou afficher un message
+          window.location.href = '/admin/liste?success=1';
+        }, 1500);
+      });
+    });
+  </script>
+</body>
+
+</html>

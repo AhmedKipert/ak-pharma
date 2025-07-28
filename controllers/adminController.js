@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 // FORMULAIRE D'AJOUT
 exports.getSignup = (req, res) => {
-    res.render('add_admin');
+    res.render('add2_admin');
 };
 
 // AJOUT
@@ -56,6 +56,37 @@ exports.postSignup = async (req, res) => {
     }
 }
 
+// LISTE
+exports.getListe = async (req, res) => {
+    try {
+        const limit = 99;
+        const page = parseInt(req.query.page) || 1;
+        const skip = (page - 1) * limit;
+        const sortBy = req.query.sortBy || 'dateConsultation';
+        const order = req.query.order || 'desc'
+
+        const totalAdmins = await Admin.countDocuments();
+        const totalPages = Math.ceil(totalAdmins / limit);
+        const admins = await Admin.find();
+        res.render('liste2_admin', {
+            admins, skip, sortBy, order, totalPages
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// FORMULAIRE DE MODIFICATION
+exports.getEdit = async(req, res) => {
+    try {
+        const admin = await Admin.findOne();
+        res.render('edit_admin', {admin});
+    } catch(err) {
+        console.log(err);
+    }
+};
+
+
 // FORMULAIRE DE CONNEXION
 exports.getLogin = (req, res) => {
     res.render('admin_login', { error: '' });
@@ -91,10 +122,10 @@ exports.postLogin = async (req, res) => {
             const limit = 2;
             const skip = (page - 1) * limit;
 
-            const totalPatients = await Patient.countDocuments();
-            const totalPages = Math.ceil(totalPatients / limit);
+            const totalAdmins = await Admin.countDocuments();
+            const totalPages = Math.ceil(totalAdmins / limit);
 
-            const patients = await Patient.find().skip(skip).limit(limit);
+            const patients = await Admin.find().skip(skip).limit(limit);
 
 
 

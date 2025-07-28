@@ -15,6 +15,12 @@ adminRouter.get('/admin/statistique', adminController.getStatistique);
 // AJOUT
 adminRouter.post('/admin/ajouter', adminController.postSignup);
 
+// LISTE
+adminRouter.get('/admin/liste', adminController.getListe);
+
+// MODIFICATION
+adminRouter.get('/admin/edit', adminController.getEdit);
+
 // CONNEXION
 adminRouter.post('/admin/login', adminController.postLogin);
 
